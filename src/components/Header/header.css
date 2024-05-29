@@ -1,0 +1,100 @@
+.topbar-container{
+    position: relative;
+    width: 100%;
+    background-color: black;
+}
+  
+.topbar-box{
+    width: 100%;  
+}
+
+.topbar-box div{
+  display: inline-flex;
+  vertical-align: middle;
+}
+  
+.logo-container{
+    width: 25%;
+    padding-left: 5%;
+}
+
+.logo-container .logo img{
+    width: 130px;
+    height: 130px;
+}
+  
+.nav-list{
+    position: relative;
+    justify-content: end;
+    width: 65%;
+    padding-right: 5%;
+    text-align: center;
+}
+.nav-list a {
+    text-decoration: none;
+    padding: 10px;
+    font-size: 20px;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nav-list a::after{
+    content: "";
+    display: block;
+    background-color: white;
+    transform: scaleX(0);  
+    transition: transform 250ms ease-in-out;
+    border-bottom: 1px solid white;
+
+}
+.nav-list a:hover::after{
+    transform: scaleX(1); /* Gradually expand the border-bottom */
+}
+  
+  
+@media screen and (max-width: 600px) {
+    .logo-container{
+        padding: 0;
+        display:block !important;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-list{
+        overflow-x: scroll;
+        width: 100%;
+        padding-right: 0;
+        justify-content: center;
+    }
+    .nav-list a{
+        margin: auto;
+        font-size: 15px;
+    }
+    .nav-list::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
+    .nav-list::-webkit-scrollbar-thumb {
+        background-color: #bdbdbd;
+        border-radius: 10px;
+        border: 3px solid #ffffff;
+        width: 5px;
+
+    }
+    .nav-list::-webkit-scrollbar-track {
+        background: #000000;
+    }
+}
+  
+@media screen and (max-width: 380px) {
+    .nav-list a{
+        font-size: 10px;
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 310px) {
+    .nav-list a{
+        font-size: 8px;
+    }
+}
