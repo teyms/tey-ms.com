@@ -9,6 +9,7 @@ import Blog from './components/Blog'
 import ShortUrlCreate from './components/ShortUrl/ShortUrlCreate'
 import { action as shortUrlCreateAction} from './components/ShortUrl/ShortUrlCreate'
 import ShortUrl from './components/ShortUrl/ShortUrl'
+import TngFileConvert from './components/TngFileConvert/TngFileConvert'
 
 
 const router = createBrowserRouter([
@@ -51,6 +52,17 @@ const router = createBrowserRouter([
           //   ],
           // },
         ],
+      },
+      {
+        path: 'tng',
+        children: [
+          {
+            index: true,
+            element: <TngFileConvert/>,
+            // action: ShortUrl.action,
+            // loader: eventsLoader,
+          }
+        ]
       },
       // {
       //   path: 'events',
