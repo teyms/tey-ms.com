@@ -14,8 +14,11 @@ export const getShortUrlApi = async (params) => {
 
 export const createShortUrlApi = async (params) => {
   try {
-    const response = await axios.post('http://localhost:8000/api/shorturl', {
-      ori_url: params.ori_url,
+    const response = await axios.post('http://localhost:8000/api/shorturl', 
+    { 
+      ori_url: params.ori_url
+    },
+    {
       headers: {
         'Content-Type': 'application/json',
         'X-Requested-With': 'XMLHttpRequest'
