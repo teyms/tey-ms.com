@@ -1,0 +1,100 @@
+.tngFileConvert-parent-container{
+    /* display: flex;
+    align-items: center;
+    flex-direction: column; */
+}
+
+.ads-container{
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+    position: absolute;
+}
+
+.left-container{
+    background: red;
+
+}
+
+.right-container{
+    background: green;
+    left: 75%;
+}
+
+.tng_text{
+    color: #FFCD00;
+}
+
+.tngFileConvert-container{
+    width: 50%;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* justify-content: center; */
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    text-align: center;
+    color: #cebaba;
+    /* color: #12122b; */
+    background-color: #0047ba;
+    padding: 20px 0 0px 0;
+    border-radius: 2rem;
+    
+}
+
+.tngFileConvert-title{
+    /* display: block; */
+    padding: 50px 0 0 0;
+}
+
+.tngFileConvert-form{
+    /* display: block; */
+    padding: 50px 0 50px 0;
+    width: 100%;
+}
+
+.tngFileConvert-form p{
+    width: 80%;
+    padding: 0 0 1.5rem 0;
+
+    text-align: center;
+    margin:auto;
+    font-size: 0.8rem;
+}
+
+.tngFileConvert-form input{
+    width: 80%;
+    height: 50px;
+
+    padding: 0 0.5rem 0 0.5rem;
+    border-radius: 0.8rem;
+    border: 0px;
+
+    font-size: 1.3rem;
+    background-color:  #4C2B6E;
+    color: #ffffff;
+}
+
+.tngFileConvert-form input[type="file"] {
+    cursor: pointer;
+}
+
+.shortUrl-btn{
+    padding: 3rem 0 0 0;
+}
+
+.shortUrl-btn button{
+    width: 30%;
+    background-color: #12122b;
+    /* background-color: #A89555; */
+    color: #ffffff;
+    /* color: #1A1B41; */
+}
