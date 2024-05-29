@@ -9,8 +9,8 @@ import Blog from './components/Blog'
 import ShortUrlCreate from './components/ShortUrl/ShortUrlCreate'
 import { action as shortUrlCreateAction} from './components/ShortUrl/ShortUrlCreate'
 import ShortUrl from './components/ShortUrl/ShortUrl'
+import EmailTemplate from './components/EmailTemplate/EmailTemplate'
 import TngFileConvert from './components/TngFileConvert/TngFileConvert'
-
 
 const router = createBrowserRouter([
   {
@@ -34,6 +34,17 @@ const router = createBrowserRouter([
             element: <ShortUrl />,
             // action: manipulateEventAction,
           },
+          {
+            path: 'emailtemplate',
+            children: [
+              {
+                index: true,
+                element: <EmailTemplate/>,
+                // action: ShortUrl.action,
+                // loader: eventsLoader,
+              }
+            ]
+          }
           // {
           //   path: ':eventId',
           //   id: 'event-detail',
