@@ -1,4 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
+import {
+    NavLink
+} from 'react-router-dom';
 import './header.css'
 import logoImg from '../../assets/logo/tms_logo_trans.png'
 
@@ -14,11 +17,11 @@ function Header(){
                     </div>
 
                     <div className="nav-list">
-                        <a> Home</a>
-                        <a> Contact</a>
-                        <a> Email Template</a>
-                        <a> Qr Generator</a>
-                        <a> Video Player</a>
+                        <NavLink> Home </NavLink>
+                        <NavLink to="/shorturl"> Short URL </NavLink>
+                        <NavLink to="/emailtemplate"> Email Template </NavLink>
+                        <NavLink to="/tng">TNG Convert </NavLink>
+                        <NavLink> Video Player</NavLink>
 
                         {/* <a routerLink="/">  Home</a>
                         <a href="#contact">  Contact</a>

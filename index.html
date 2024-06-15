@@ -5,6 +5,22 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React</title>
+    <style>
+      /* Use in RootRouter.jsx */
+      .wrapper {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+      .body-container{
+        flex: auto;
+        position: relative;
+        height: 500px;
+      }
+
+
+    </style>
   </head>
   <body>
     <div style="margin: auto;" id="root"></div>
