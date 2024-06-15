@@ -33,17 +33,6 @@ const router = createBrowserRouter([
             path: '*',
             element: <ShortUrl />,
             // action: manipulateEventAction,
-          },
-          {
-            path: 'emailtemplate',
-            children: [
-              {
-                index: true,
-                element: <EmailTemplate/>,
-                // action: ShortUrl.action,
-                // loader: eventsLoader,
-              }
-            ]
           }
           // {
           //   path: ':eventId',
@@ -75,6 +64,17 @@ const router = createBrowserRouter([
           }
         ]
       },
+      {
+        path: 'emailtemplate',
+        children: [
+          {
+            index: true,
+            element: <EmailTemplate/>,
+            // action: ShortUrl.action,
+            // loader: eventsLoader,
+          }
+        ]
+      }
       // {
       //   path: 'events',
       //   element: <EventsRootLayout />,

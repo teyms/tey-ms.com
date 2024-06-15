@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 // import '../App.css';
 
 import { getShortUrl } from '../../store/shortUrl-action';
+import Loading from '../../components/Loader/Loading';
 
 function ShortUrl() {
     const shortUrl = useSelector((state) => state.shortUrl) 
@@ -22,23 +23,43 @@ function ShortUrl() {
     const navigate = useNavigate();
     const getShortUrlString = useParams();
 
+    const [isLoading, setIsLoading] = useState(true);// default as loading, since it will redirect
+
+    // get shortUrl code from URL
     useEffect(() => {
       async function getFullUrl(){
-          console.log(getShortUrlString);
-      
           await dispatch(getShortUrl(getShortUrlString['*']));
       }
+
       try{
         getFullUrl();
 
       }catch{
         console.log('ShortUrl component error');
+        Swal.fire({
+          title: 'ERROR!',
+          text: "Something Went Wrong!",
+          icon: 'error',
+          confirmButtonText: 'OK',
+          customClass: {
+            popup: 'custom-swal-color',
+            content: 'custom-swal-color',
+            confirmButton: 'custom-swal-color',
+          },
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // If the user clicks "OK", redirect to "/home"
+            return navigate('/shortUrl');
+          } else {
+            // If the user dismisses the dialog by clicking outside,
+            // also redirect to "/home"
+            return navigate('/shortUrl');
+          }
+        });        
       }
     }, [dispatch, getShortUrlString]);
 
     useEffect(() => {
-      console.log(status);
-      console.log(oriUrl);
       if (status && oriUrl) {
         return window.location.href = oriUrl; // Perform the action after 5 seconds
       }else if(status === false && oriUrl === 'shortUrl_failed'){
@@ -66,7 +87,11 @@ function ShortUrl() {
       }
     }, [status, oriUrl]);
 
-  return null; // No need to render anything since we're redirecting
+  return (
+    <>
+      { isLoading && <Loading/> }
+    </>
+  ); // No need to render anything since we're redirecting
 }
 
 export default ShortUrl;
