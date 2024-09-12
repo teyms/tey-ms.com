@@ -37,17 +37,14 @@ function EmailTemplate() {
     }
 
     function onMouseDownGrabber(event){
-        console.log('grabber true')
         // this.isGrabber = true;
         setIsGrabber(() => true);
         // const element: HTMLElement = this.iframeRef.nativeElement;
         iframe_ref.current.style.pointerEvents = 'none';
-        // console.log('touch start');
     }
     
     function onMouseUpGrabber(event){
         // this.isGrabber = false;
-        console.log('onMouseUpGrabber');
 
         setIsGrabber(false);
         // const element: HTMLElement = this.iframeRef.nativeElement;
@@ -56,21 +53,16 @@ function EmailTemplate() {
     }
     
     function onMouseMoveGrabber(event){
-        console.log('onMouseMoveGrabber');
-        console.log(isGrabber);
         if(isGrabber){
           if(event.type === 'mousemove'){
             event.preventDefault();
           }
-        //   const iframeElem: HTMLElement = this.iframeRef.nativeElement;
-        //   const iframeBoxElem: HTMLElement = this.iframeBoxRef.nativeElement;
+          // const iframeElem: HTMLElement = this.iframeRef.nativeElement;
+          // const iframeBoxElem: HTMLElement = this.iframeBoxRef.nativeElement;
           const rect = iframe_ref.current.getBoundingClientRect();
-        //   console.log(rect);
 
           //get clientX in diff eventslistener
           const clientX = (event.type === 'mousemove')? event.clientX: event.touches[0].clientX;
-    
-          console.log((clientX-rect.left).toString()+'px');
 
           iframe_ref.current.style.width = (clientX-rect.left).toString()+'px';
           iframeBox_ref.current.style.width = (clientX-rect.left).toString()+'px';
