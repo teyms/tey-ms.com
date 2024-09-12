@@ -11,6 +11,7 @@ import { action as shortUrlCreateAction} from './components/ShortUrl/ShortUrlCre
 import ShortUrl from './components/ShortUrl/ShortUrl'
 import EmailTemplate from './components/EmailTemplate/EmailTemplate'
 import TngFileConvert from './components/TngFileConvert/TngFileConvert'
+import Home from './components/Home/Home'
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,8 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     // errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <Blog /> },
+      { index: true, element: <Home /> },
+      // { index: true, element: <Blog /> },
       {
         path: 'shorturl',
         // element: <EventsRootLayout />,
