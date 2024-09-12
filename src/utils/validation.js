@@ -9,8 +9,6 @@ const validation = {
 
     isURLValid(value){
         // url = /^(https?:\/\/)/.test(value.substring(0, 8));
-        console.log('url value');
-        console.log(value);
         const regex = /^(ftp|http|https):\/\/[^ "]+$/;
         return regex.test(value);
     },

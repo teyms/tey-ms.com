@@ -9,7 +9,6 @@ const shortUrlSlice = createSlice({
   },
   reducers: {
     updateShortUrl(state, action) {
-        console.log(action.payload);
         state.ori_url = action.payload?.ori_url || '';
         state.shorten_url = action.payload?.shorten_url || '';
         const success = action.payload?.success;

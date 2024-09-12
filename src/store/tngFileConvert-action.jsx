@@ -3,16 +3,11 @@ import { createTngFileConvertApi } from '../apis/tngFileConvert-api';
 
 export const createTngFileConvert = (tngFileConvert) => {
   return async (dispatch) => {
-    console.log('action data');
-    console.log(tngFileConvert);
 
     tngFileConvertActions.updateTngFile({tngFileConvert})
 
     const sendRequest = async () => {
         const res = await createTngFileConvertApi(tngFileConvert);
-
-        console.log('res12345');
-        // console.log(res);
 
         if (!res?.success) {
           return dispatch(
@@ -23,9 +18,6 @@ export const createTngFileConvert = (tngFileConvert) => {
         );
         }
         // const res = await response.json()
-        console.log(res);
-        console.log(res?.data);
-        // console.log(res?.data.converted_content);
 
         return dispatch(
             tngFileConvertActions.updateTngFileConverted({

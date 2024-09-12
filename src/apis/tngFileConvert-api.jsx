@@ -4,7 +4,8 @@ import axios from './axiosConfig';
 export const createTngFileConvertApi = async (params) => {
 
   try {
-    const response = await axios.post('http://localhost:8000/api/tng', 
+    // const response = await axios.post('http://localhost:8000/api/tng', 
+    const response = await axios.post(`${import.meta.env.VITE_API_REQUEST_URL}/tng`, 
       {      
         name    : params.name,
         content : params.content,

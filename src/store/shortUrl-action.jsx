@@ -49,9 +49,6 @@ export const getShortUrl = (shortUrl) => {
     //   })
     // );
 
-    console.log('action data');
-    console.log(shortUrl);
-
     const sendRequest = async () => {
         // const response = await fetch(
         //     `http://localhost:8000/api/shorturl/${shortUrl}`,
@@ -79,7 +76,6 @@ export const getShortUrl = (shortUrl) => {
         const res = await getShortUrlApi(shortUrl);
 
         if(!res?.success){
-          console.log('error success', res);
           return dispatch(
             shortUrlActions.updateShortUrl({
               ori_url: 'shortUrl_failed', 
@@ -87,7 +83,6 @@ export const getShortUrl = (shortUrl) => {
             })
           );
         }
-        console.log('no erro success', res);
 
         return dispatch(
             shortUrlActions.updateShortUrl({
@@ -131,9 +126,6 @@ export const createShortUrl = (shortUrl) => {
     //   })
     // );
 
-    console.log('action data');
-    console.log(shortUrl);
-
     const sendRequest = async () => {
         // const response = await fetch(
         //     'http://localhost:8000/api/shorturl',
@@ -153,8 +145,6 @@ export const createShortUrl = (shortUrl) => {
 
         const res = await createShortUrlApi(shortUrl);
 
-        console.log(res);
-
         if (!res?.success) {
           return dispatch(
             shortUrlActions.updateShortUrl({
@@ -163,10 +153,6 @@ export const createShortUrl = (shortUrl) => {
             })
         );
         }
-        // const res = await response.json()
-        console.log(res);
-        console.log(res?.data);
-        console.log(res?.data?.shorten_url);
 
         return dispatch(
             shortUrlActions.updateShortUrl({

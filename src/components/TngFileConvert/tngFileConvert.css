@@ -1,26 +1,26 @@
 .tngFileConvert-parent-container{
-    /* display: flex;
+    height: 100vh;
+    display: flex;
     align-items: center;
-    flex-direction: column; */
 }
 
-.ads-container{
-    width: 25%;
+.tngFileConvert-ads-container{
+    width: 20%;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 500px;
+    /* height: 500px; */
     position: absolute;
 }
 
-.left-container{
+.tngFileConvert-left-container{
     background: red;
 
 }
 
-.right-container{
+.tngFileConvert-right-container{
     background: green;
-    left: 75%;
+    left: 80%;
 }
 
 .tng_text{
@@ -28,7 +28,7 @@
 }
 
 .tngFileConvert-container{
-    width: 50%;
+    width: 60%;
     margin: auto;
 
     display: flex;
@@ -37,9 +37,8 @@
     /* justify-content: center; */
 
     position: absolute;
-    top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0%);
     
     text-align: center;
     color: #cebaba;
@@ -51,12 +50,10 @@
 }
 
 .tngFileConvert-title{
-    /* display: block; */
     padding: 50px 0 0 0;
 }
 
 .tngFileConvert-form{
-    /* display: block; */
     padding: 50px 0 50px 0;
     width: 100%;
 }
@@ -67,7 +64,7 @@
 
     text-align: center;
     margin:auto;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
 .tngFileConvert-form input{
@@ -87,14 +84,84 @@
     cursor: pointer;
 }
 
-.shortUrl-btn{
+.tngFileConvert-btn{
     padding: 3rem 0 0 0;
 }
 
-.shortUrl-btn button{
+.tngFileConvert-btn button{
     width: 30%;
     background-color: #12122b;
     /* background-color: #A89555; */
     color: #ffffff;
     /* color: #1A1B41; */
+}
+
+
+@media screen and (max-width: 800px) {
+    .tngFileConvert-parent-container{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .tngFileConvert-ads-container{
+        position: relative;
+        width: 80%;
+    }
+    
+    .tngFileConvert-left-container{
+    
+    }
+    
+    .tngFileConvert-right-container{
+        left: unset;
+    }
+
+    .tngFileConvert-container{
+        position: relative;
+        margin: unset;
+        left: unset;
+        transform: unset;
+        width: 80%
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .tngFileConvert-title{
+        font-size: 2.5rem;
+    }
+    .tngFileConvert-form p{
+        font-size: 0.8rem;
+    }
+    
+    .tngFileConvert-form input{
+        font-size: 1.1rem;
+        height: 40px;
+        width: 70%;
+    }
+    
+    .tngFileConvert-btn button{
+        font-size: 0.9rem;
+    }
+}
+  
+@media screen and (max-width: 450px) {
+    .tngFileConvert-container{
+        width: 90%;
+    }
+    .tngFileConvert-title{
+        font-size: 2rem;
+    }
+    .tngFileConvert-form p{
+        font-size: 0.7rem;
+    }
+    
+    .tngFileConvert-form input{
+        font-size: 0.8rem;
+    }
+    .tngFileConvert-btn button{
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 310px) {
+
 }

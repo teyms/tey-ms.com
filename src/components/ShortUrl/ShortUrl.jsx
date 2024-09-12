@@ -35,7 +35,6 @@ function ShortUrl() {
         getFullUrl();
 
       }catch{
-        console.log('ShortUrl component error');
         Swal.fire({
           title: 'ERROR!',
           text: "Something Went Wrong!",

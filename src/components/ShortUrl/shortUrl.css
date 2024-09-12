@@ -1,30 +1,30 @@
 .shortUrlCreate-parent-container{
-    /* display: flex;
+    height: 100vh;
+    display: flex;
     align-items: center;
-    flex-direction: column; */
 }
 
-.ads-container{
-    width: 25%;
+.shortUrl-ads-container{
+    width: 20%;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 500px;
+    /* height: 500px; */
     position: absolute;
 }
 
-.left-container{
+.shortUrl-left-container{
     background: red;
 
 }
 
-.right-container{
+.shortUrl-right-container{
     background: green;
-    left: 75%;
+    left: 80%;
 }
 
 .shortUrlCreate-container{
-    width: 50%;
+    width: 60%;
     margin: auto;
 
     display: flex;
@@ -33,13 +33,11 @@
     /* justify-content: center; */
 
     position: absolute;
-    top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0%);
     
     text-align: center;
     color: #cebaba;
-    /* color: #12122b; */
     background-color: #5A3785;
     padding: 20px 0 0px 0;
     border-radius: 2rem;
@@ -47,12 +45,10 @@
 }
 
 .shortUrlCreate-title{
-    /* display: block; */
     padding: 50px 0 0 0;
 }
 
 .shortUrlCreate-form{
-    /* display: block; */
     padding: 50px 0 50px 0;
     width: 100%;
 }
@@ -63,7 +59,7 @@
 
     text-align: center;
     margin:auto;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
 .shortUrlCreate-form input{
@@ -89,4 +85,79 @@
     /* background-color: #A89555; */
     color: #ffffff;
     /* color: #1A1B41; */
+}
+
+
+@media screen and (max-width: 800px) {
+    .shortUrlCreate-parent-container{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .shortUrl-ads-container{
+        position: relative;
+        width: 80%;
+    }
+    
+    .shortUrl-left-container{
+    
+    }
+    
+    .shortUrl-right-container{
+        left: unset;
+    }
+
+    .shortUrlCreate-container{
+        position: relative;
+        margin: unset;
+        left: unset;
+        transform: unset;
+        width: 80%
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .shortUrlCreate-title{
+        font-size: 2.5rem;
+    }
+    .shortUrlCreate-form p{
+        font-size: 0.8rem;
+    }
+    
+    .shortUrlCreate-form input{
+        font-size: 1.1rem;
+        height: 40px;
+        width: 70%;
+    }
+    .shortUrl-input-label{
+        font-size: 0.9rem;
+    }
+    .shortUrl-btn button{
+        font-size: 0.9rem;
+    }
+}
+  
+@media screen and (max-width: 450px) {
+    .shortUrlCreate-container{
+        width: 90%;
+    }
+    .shortUrlCreate-title{
+        font-size: 2rem;
+    }
+    .shortUrlCreate-form p{
+        font-size: 0.7rem;
+    }
+    
+    .shortUrlCreate-form input{
+        font-size: 0.8rem;
+    }
+    .shortUrl-input-label{
+        font-size: 0.8rem;
+    }
+    .shortUrl-btn button{
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 310px) {
+
 }

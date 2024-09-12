@@ -211,12 +211,12 @@ function TngFileConvert({ method, event }) {
       {isLoading && <Loading/>}
 
       <div className='tngFileConvert-parent-container'>
-        <div className="ads-container left-container">
-          <div className='ads-banner'>qwer</div>
+        <div className="tngFileConvert-ads-container tngFileConvert-left-container">
+          <div className='tngFileConvert-ads-banner'>qwer</div>
         </div>
         <div className="tngFileConvert-container">
           {/* <h1>{shortUrl}</h1> */}
-          <h1 className='tngFileConvert-title'><span className='tng_text'>TNG</span> Convert</h1>
+          <h1 className='tngFileConvert-title'><span className='tng_text'>Touch 'n Go</span> Convert</h1>
 
           <Form   
                   onSubmit={handleSubmit} 
@@ -224,9 +224,7 @@ function TngFileConvert({ method, event }) {
           >
             <div>
               <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 
-              et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-              ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                Convert TNG transaction's PDF to Excel(.CSV) file
               </p>
               <input 
                 id="content"
@@ -236,7 +234,7 @@ function TngFileConvert({ method, event }) {
               />
             </div>
             <div 
-              className='shortUrl-btn'
+              className='tngFileConvert-btn'
               >
               {/* <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
                 Cancel
@@ -247,8 +245,8 @@ function TngFileConvert({ method, event }) {
             </div>
           </Form>
         </div>
-        <div className="ads-container right-container">
-          <div className='ads-banner'>qwer</div>
+        <div className="tngFileConvert-ads-container tngFileConvert-right-container">
+          <div className='tngFileConvert-ads-banner'>qwer</div>
         </div>
       </div>
     </>

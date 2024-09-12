@@ -3,7 +3,8 @@ import axios from './axiosConfig';
 
 export const getShortUrlApi = async (params) => {
   try {
-    const response = await axios.get(`http://localhost:8000/api/shorturl/${params}`);
+    // const response = await axios.get(`http://localhost:8000/api/shorturl/${params}`);
+    const response = await axios.get(`${import.meta.env.VITE_API_REQUEST_URL}/shorturl/${params}`);
     return response.data;
   } catch (error) {
     console.error('API error:', error);
@@ -14,7 +15,8 @@ export const getShortUrlApi = async (params) => {
 
 export const createShortUrlApi = async (params) => {
   try {
-    const response = await axios.post('http://localhost:8000/api/shorturl', 
+    // const response = await axios.post('http://localhost:8000/api/shorturl', 
+    const response = await axios.post(`${import.meta.env.VITE_API_REQUEST_URL}/shorturl`, 
     { 
       ori_url: params.ori_url
     },

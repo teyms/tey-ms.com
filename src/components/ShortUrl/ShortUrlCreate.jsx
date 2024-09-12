@@ -54,7 +54,8 @@ function ShortUrlCreate({ method, event }) {
     if (status && shortUrl) {
       Swal.fire({
         title: 'SUCCESS!',
-        html: `your shortURL is: <a href='http://localhost:5173/shorturl/${shortUrl}'>http://localhost:5173/shorturl/${shortUrl}</a>`,
+        // html: `your shortURL is: <a href='http://localhost:5173/shorturl/${shortUrl}'>http://localhost:5173/shorturl/${shortUrl}</a>`,
+        html: `your shortURL is: <a href='${import.meta.env.VITE_SELF_URL}/shorturl/${shortUrl}'>${import.meta.env.VITE_SELF_URL}/shorturl/${shortUrl}</a>`,
         // html: `your shortURL is: <a href='https://www.tey-ms.com/shorturl/${shortUrl}'>https://www.tey-ms.com/shorturl/${shortUrl}</a>`,
         icon: 'success',
         confirmButtonText: 'OK',
@@ -112,7 +113,6 @@ function ShortUrlCreate({ method, event }) {
     }
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
       url = 'https://' + url;
-      console.log('url add https://', url);
       setEnteredValues(prevValues => ({
         ...prevValues,
         ori_url: url,
@@ -190,8 +190,8 @@ function ShortUrlCreate({ method, event }) {
     <>
       {isLoading && <Loading/>}
       <div className='shortUrlCreate-parent-container'>
-        <div className="ads-container left-container">
-          <div className='ads-banner'>qwer</div>
+        <div className="shortUrl-ads-container shortUrl-left-container">
+          <div className='shortUrl-ads-banner'>qwer</div>
         </div>
         <div className="shortUrlCreate-container">
           {/* <h1>{shortUrl}</h1> */}
@@ -207,7 +207,7 @@ function ShortUrlCreate({ method, event }) {
                 Simply your sharing with short URLs service 
               </p>
               {/* <label htmlFor="url">Url</label> */}
-              https:// <input
+              <label className='shortUrl-input-label'>https://</label> <input
                 id="url"
                 type="text"
                 name="url"
@@ -230,8 +230,8 @@ function ShortUrlCreate({ method, event }) {
             </div>
           </Form>
         </div>
-        <div className="ads-container right-container">
-          <div className='ads-banner'>qwer</div>
+        <div className="shortUrl-ads-container shortUrl-right-container">
+          <div className='shortUrl-ads-banner'>qwer</div>
         </div>
       </div>
     </>
