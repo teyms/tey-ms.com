@@ -151,7 +151,7 @@ export const createShortUrl = (shortUrl) => {
               shorten_url: 'shortUrl_failed',
               success: false,
             })
-        );
+          );
         }
 
         return dispatch(

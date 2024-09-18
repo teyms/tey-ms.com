@@ -190,7 +190,7 @@ function ShortUrlCreate({ method, event }) {
     <>
       {isLoading && <Loading/>}
       <div className='shortUrlCreate-parent-container'>
-        <div className="shortUrl-ads-container shortUrl-left-container">
+        <div className="shortUrl-ads-container shortUrl-left-container" style={{visibility:'hidden'}}>
           <div className='shortUrl-ads-banner'>qwer</div>
         </div>
         <div className="shortUrlCreate-container">
@@ -230,7 +230,7 @@ function ShortUrlCreate({ method, event }) {
             </div>
           </Form>
         </div>
-        <div className="shortUrl-ads-container shortUrl-right-container">
+        <div className="shortUrl-ads-container shortUrl-right-container" style={{visibility:'hidden'}}>
           <div className='shortUrl-ads-banner'>qwer</div>
         </div>
       </div>

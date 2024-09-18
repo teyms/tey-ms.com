@@ -1,6 +1,6 @@
 .email-title{
     text-align: center;  
-    color: #cebaba;
+    color: #ede5e5;
 }
 .email-title p{
   font-size: 50px;
@@ -122,7 +122,7 @@
   width: 70%;
   margin: auto;
   padding: 0 0 30px 0; */
-  color: #cebaba;
+  color: #ede5e5;
 }
   
 @media screen and (max-width: 1080px) {

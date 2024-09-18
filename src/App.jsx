@@ -2,10 +2,11 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom';
 
 import RootLayout from './RootRouter'
-import Blog from './components/Blog'
+import Blog from './components/Blog/Blog'
+import BlogPost from './components/Blog/BlogPost'
 import ShortUrlCreate from './components/ShortUrl/ShortUrlCreate'
 import { action as shortUrlCreateAction} from './components/ShortUrl/ShortUrlCreate'
 import ShortUrl from './components/ShortUrl/ShortUrl'
@@ -21,6 +22,24 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       // { index: true, element: <Blog /> },
+      {
+        path: 'blog',
+        children: [
+          {
+            index: true,
+            element: <Blog/>,
+            // action: ShortUrl.action,
+            // loader: eventsLoader,
+          }
+          ,
+          {
+            path: '*',
+            element: <BlogPost/>,
+            // action: ShortUrl.action,
+            // loader: eventsLoader,
+          }
+        ]
+      },
       {
         path: 'shorturl',
         // element: <EventsRootLayout />,
@@ -76,7 +95,12 @@ const router = createBrowserRouter([
             // loader: eventsLoader,
           }
         ]
-      }
+      },
+      { 
+        path: "*", 
+        // element: <Home /> 
+        element: <Navigate to="/" replace />
+      },
       // {
       //   path: 'events',
       //   element: <EventsRootLayout />,
