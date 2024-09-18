@@ -20,8 +20,8 @@ function Header(){
                         <NavLink> Home </NavLink>
                         <NavLink to="/shorturl"> Short URL </NavLink>
                         <NavLink to="/emailtemplate"> Email Template </NavLink>
-                        <NavLink to="/tng">TNG Convert </NavLink>
-                        <NavLink> Video Player</NavLink>
+                        {/* <NavLink to="/tng">TNG Convert </NavLink> */}
+                        <NavLink to="/blog"> Blog</NavLink>
 
                         {/* <a routerLink="/">  Home</a>
                         <a href="#contact">  Contact</a>
