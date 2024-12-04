@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 
 import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom';
-
 import RootLayout from './RootRouter'
+import { useDispatch } from 'react-redux';
+
 import Blog from './components/Blog/Blog'
 import BlogPost from './components/Blog/BlogPost'
 import ShortUrlCreate from './components/ShortUrl/ShortUrlCreate'
@@ -13,6 +14,9 @@ import ShortUrl from './components/ShortUrl/ShortUrl'
 import EmailTemplate from './components/EmailTemplate/EmailTemplate'
 import TngFileConvert from './components/TngFileConvert/TngFileConvert'
 import Home from './components/Home/Home'
+import GoogleAuth from './components/Auth/GoogleAuth'
+
+import {hydrateAuthState} from './store/googleAuth-action'
 
 const router = createBrowserRouter([
   {
@@ -22,6 +26,8 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       // { index: true, element: <Blog /> },
+      { path: 'login', index: true, element: <GoogleAuth /> },
+      // #BLOG
       {
         path: 'blog',
         children: [
@@ -40,6 +46,7 @@ const router = createBrowserRouter([
           }
         ]
       },
+      // #shorturl
       {
         path: 'shorturl',
         // element: <EventsRootLayout />,
@@ -74,6 +81,7 @@ const router = createBrowserRouter([
           // },
         ],
       },
+      // #tng
       {
         path: 'tng',
         children: [
@@ -85,6 +93,7 @@ const router = createBrowserRouter([
           }
         ]
       },
+      // #emailTemplate
       {
         path: 'emailtemplate',
         children: [
@@ -96,6 +105,7 @@ const router = createBrowserRouter([
           }
         ]
       },
+      // #*(ALL)
       { 
         path: "*", 
         // element: <Home /> 
@@ -145,11 +155,15 @@ const router = createBrowserRouter([
 
 function App() {
   // const [count, setCount] = useState(0)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Hydrate state from localStorage on app load
+    dispatch(hydrateAuthState());
+  }, [dispatch]);
 
   return (
     <>
-      {/* <div>okok</div> */}
-      {/* <Blog></Blog> */}
       {/* <ShortUrl></ShortUrl> */}
       <RouterProvider router={router} />
     </>
