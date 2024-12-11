@@ -1,8 +1,8 @@
-import axios from './axiosConfig';
+import axiosInstance from './axiosConfig';
 
 export const postGoogleAuthApi = async (payloadFromGoogle) => {
   try {
-    const response = await axios.post(`${import.meta.env.VITE_API_REQUEST_URL}/googleauth/callback`, 
+    const response = await axiosInstance.post(`/googleauth/callback`, 
       {      
         token: payloadFromGoogle.access_token,
       }
@@ -24,7 +24,7 @@ export const postGoogleAuthApi = async (payloadFromGoogle) => {
 
 export const logoutApi = async (userDetails, token) => {
   try {
-    const response = await axios.post(`${import.meta.env.VITE_API_REQUEST_URL}/logout`, 
+    const response = await axiosInstance.post(`/logout`, 
       {      
         email: userDetails.email,
         token: token,

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     Form,
@@ -11,52 +11,52 @@ import {
 import Swal from 'sweetalert2';
 
 import './shortUrl.css';
-import validation from '../../utils/validation'
+import { helperErrorPopUp } from '../../utils/validation'
 
 import { createShortUrl } from '../../store/shortUrl-action';
 import { shortUrlActions } from '../../store/shortUrl-slide';
 import Loading from '../../components/Loader/Loading';
+import { GUEST_SUBMIT_FORM, USER_SUBMIT_FORM } from '../../utils/constant';
+import { 
+  validateUrl,
+  validateCustomPath,
+  validateTitle,
+  validateDescription,
+  validateExpiresAt,
+} from './ShortUrlCreateUtils';
+
+import { TextField, Switch, FormControlLabel , Typography, Button } from '@mui/material';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'; // Import DateTimePicker
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'; // Localization provider
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'; // Adapter for date-fns
+import { enUS } from 'date-fns/locale'; // Optional: Change locale to French if needed
 
 function ShortUrlCreate({ method, event }) {
+  const [showDatePicker, setShowDatePicker] = useState(false); // Control visibility of DateTimePicker
+  const [enteredValues, setEnteredValues] = useState({
+    original_url: '',
+    customPath: '',
+    title: '',
+    description: '',
+    expires_at: null, // Initialize to null (or new Date()) to avoid the uncontrolled warning
+  });
 
-  // const createdShortUrl = useSelector((state) => state.shortUrl.shorten_url) 
+  const { isAuthenticated, user } = useSelector((state) => state.googleAuth);
   const shortUrl = useSelector((state) => state.shortUrl.shorten_url) 
-  // const oriUrl = useSelector((state) => state.shortUrl.ori_url) 
   const status = useSelector((state) => state.shortUrl.success)
   const data = useActionData();
   const navigate = useNavigate();
   const navigation = useNavigation();
-
   const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
-  // const [validationSuccess, setValidationSuccess] = useState(false);
-  const [enteredValues, setEnteredValues] = useState({
-      ori_url: '',
-      // password: '',
-    });
-
   const isSubmitting = navigation.state === 'submitting';
-
-  // useEffect(() => {
-  //   async function createShortUrlFunction(){
-  //     if(validationSuccess){
-  //       await dispatch(createShortUrl(enteredValues));
-
-  //       setValidationSuccess(false);
-  //     }
-  //   }
-
-  //   createShortUrlFunction();
-  // }, [validationSuccess])
 
   useEffect(() => {
     if (status && shortUrl) {
       Swal.fire({
-        title: 'SUCCESS!',
-        // html: `your shortURL is: <a href='http://localhost:5173/shorturl/${shortUrl}'>http://localhost:5173/shorturl/${shortUrl}</a>`,
-        html: `your shortURL is: <a href='${import.meta.env.VITE_SELF_URL}/shorturl/${shortUrl}'>${import.meta.env.VITE_SELF_URL}/shorturl/${shortUrl}</a>`,
-        // html: `your shortURL is: <a href='https://www.tey-ms.com/shorturl/${shortUrl}'>https://www.tey-ms.com/shorturl/${shortUrl}</a>`,
+        title: 'SUCCESS!',        
+        html: `your shortURL is: <a href='${import.meta.env.VITE_SELF_URL}/shorturl/${shortUrl}'>${import.meta.env.VITE_SELF_URL}/shorturl/${shortUrl}</a>`,  
         icon: 'success',
         confirmButtonText: 'OK',
         customClass: {
@@ -66,17 +66,7 @@ function ShortUrlCreate({ method, event }) {
         },
       })
     }else if(status === false && shortUrl === 'shortUrl_failed'){
-      Swal.fire({
-        title: 'ERROR!',
-        text: 'Failed to submit ShortURL',
-        icon: 'error',
-        confirmButtonText: 'OK',
-        customClass: {
-          popup: 'custom-swal-color',
-          content: 'custom-swal-color',
-          confirmButton: 'custom-swal-color',
-        },
-      })
+      helperErrorPopUp({title: 'ERROR!', text: 'Failed to submit ShortURL'})
     }
 
     // reset
@@ -91,58 +81,94 @@ function ShortUrlCreate({ method, event }) {
   }, [status, shortUrl])
 
   function formDataValidation(){
-    let url = enteredValues.ori_url;
-    if(validation.isEmpty(url)){
-      Swal.fire({
-        title: 'ERROR!',
-        text: "URL/LINK cannot be empty!",
-        icon: 'error',
-        confirmButtonText: 'OK',
-        customClass: {
-          popup: 'custom-swal-color',
-          content: 'custom-swal-color',
-          confirmButton: 'custom-swal-color',
-        },
-      });
+    const submitType = isAuthenticated? USER_SUBMIT_FORM: GUEST_SUBMIT_FORM;
+    const formData = {...enteredValues};
 
-      return {
-        success: false,
-        ori_url: '',
-        // password: '',
-      };
+    switch(submitType){
+      case USER_SUBMIT_FORM:{
+        //Validation for URL
+        let url = formData?.original_url;
+        const validateUrlResult = validateUrl(url);
+        if(!validateUrlResult.success) return {success:false};        
+        url = validateUrlResult.url;
+        formData.original_url = url;
+        setEnteredValues(prevValues => ({
+          ...prevValues,
+          original_url: url,
+        }));          
+
+        //Validation for CustomPath
+        let customPath = formData?.customPath;
+        const validateCustomPathResult = validateCustomPath(customPath, user.short_url_path);
+        if(!validateCustomPathResult.success) return {success:false};  
+        formData.customPath = validateCustomPathResult.customPath;
+        setEnteredValues(prevValues => ({
+          ...prevValues,
+          customPath: customPath,
+        }));         
+
+        //Validation for Title
+        let title = formData?.title;
+        const validateTitleResult = validateTitle(title);
+        if(!validateTitleResult.success) return {success:false};   
+        formData.title = validateTitleResult.title;
+        setEnteredValues(prevValues => ({
+          ...prevValues,
+          title: title,
+        }));         
+
+        //Validation for Description
+        let description = formData?.description;
+        const validateDescriptionResult = validateDescription(description);
+        if(!validateDescriptionResult.success) return {success:false};    
+        formData.description = validateDescriptionResult.description;
+        setEnteredValues(prevValues => ({
+          ...prevValues,
+          description: description,
+        }));         
+        
+        //Validation for expiresAt
+        let expires_at = formData?.expires_at;
+        if(showDatePicker){          
+          const validateExpiresAtResult = validateExpiresAt(expires_at);
+          if(!validateExpiresAtResult.success) return {success:false};  
+          formData.expires_at = validateExpiresAtResult.expires_at;
+          setEnteredValues(prevValues => ({
+            ...prevValues,
+            expires_at: expires_at,nv
+          }));          
+        }else{
+          expires_at = null;
+          formData.expires_at = expires_at;
+          setEnteredValues(prevValues => ({
+            ...prevValues,
+            expires_at: expires_at,
+          }));   
+        }
+
+        return {...formData, success:true};
+      }
+      case GUEST_SUBMIT_FORM:{
+        
+        let url = formData?.original_url;
+        const validateUrlResult = validateUrl(url);
+        if(!validateUrlResult.success) return {success:false};
+        
+        url = validateUrlResult.url;
+        formData.original_url = url;
+        setEnteredValues(prevValues => ({
+          ...prevValues,
+          original_url: url,
+        }));          
+        return {...formData, success:true};
+      }
+      default:{
+        return {
+          success: false,
+          original_url: '',
+        };
+      }
     }
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-      url = 'https://' + url;
-      setEnteredValues(prevValues => ({
-        ...prevValues,
-        ori_url: url,
-      }));
-      //some action immediately
-
-      // setEnteredValues(() => ({
-      //   ori_url: url,
-      // }));
-    }
-    // if(validation.isURLValid(url)){
-    //   Swal.fire({
-    //     title: 'ERROR!',
-    //     text: "URL/LINK is invalid!",
-    //     icon: 'error',
-    //     confirmButtonText: 'OK',
-    //     customClass: {
-    //       popup: 'custom-swal-color',
-    //       content: 'custom-swal-color',
-    //       confirmButton: 'custom-swal-color',
-    //     },
-    //   });
-
-    //   return false;
-    // }
-
-    return {
-      success: true,
-      ori_url: url,
-    };
   }
 
   function handleInputChange(identifier, value) {
@@ -154,32 +180,34 @@ function ShortUrlCreate({ method, event }) {
 
   async function handleSubmit(event){
     try{
+      const submitType = isAuthenticated? USER_SUBMIT_FORM: GUEST_SUBMIT_FORM;
       setIsLoading(true);
       event.preventDefault();
-      
-      // await setValidationSuccess(await formDataValidation());
 
       const validationSuccess = await formDataValidation();
 
       if(validationSuccess.success){
-        await dispatch(createShortUrl({
-          ori_url: validationSuccess.ori_url,
-        }));
+        switch(submitType){
+          case USER_SUBMIT_FORM:{
+            delete validationSuccess.success; // unset the succcess key inside the json data
+            await dispatch(createShortUrl(validationSuccess));
+            break;
+          }
+          case GUEST_SUBMIT_FORM:{
+            await dispatch(createShortUrl({
+              original_url: validationSuccess.original_url,
+            }));
+            break;            
+          }
+          default:{    
+          }
+        }
       }
       
 
-    }catch{
-      Swal.fire({
-        title: 'ERROR!',
-        text: "Something Went Wrong!",
-        icon: 'error',
-        confirmButtonText: 'OK',
-        customClass: {
-          popup: 'custom-swal-color',
-          content: 'custom-swal-color',
-          confirmButton: 'custom-swal-color',
-        },
-      });
+    }catch(ex){
+      // console.log(ex);
+      helperErrorPopUp({title: 'ERROR!', text: "Something Went Wrong!"})
     
     }finally{
       setIsLoading(false);
@@ -194,41 +222,128 @@ function ShortUrlCreate({ method, event }) {
           <div className='shortUrl-ads-banner'>qwer</div>
         </div>
         <div className="shortUrlCreate-container">
-          {/* <h1>{shortUrl}</h1> */}
           <h1 className='shortUrlCreate-title'>Short URL</h1>
+          <LocalizationProvider dateAdapter={AdapterDateFns} locale={enUS}> {/* Set locale if necessary */}
+            <Form   
+              method="post" 
+              onSubmit={handleSubmit} 
+              noValidate
+              className='shortUrlCreate-form'
+            >
+              <div>
+                <p>
+                  Make lengthy URLs into short links with a click. Share seamlessly on social media, texts, and more. 
+                  Simply your sharing with short URLs service 
+                </p>
+                {/* <label htmlFor="url">Url</label> */}
+                <div className='form-row'>
+                  {/* <label className='shortUrlCreate-input-label'>*https://</label>  */}
+                  <label className='shortUrlCreate-input-label'>*URL/ Website Link</label> 
+                  <input
+                    id="url"
+                    type="text"
+                    name="url"
+                    // required
+                    onChange={(event) => handleInputChange('original_url', event.target.value)}
+                    placeholder='www.teyms.com'
+                    disabled={isLoading}
+                  //   defaultValue={event ? event.title : ''}
+                  />
+                </div>
 
-          <Form   
-                  onSubmit={handleSubmit} 
-                  className='shortUrlCreate-form'
-          >
-            <div>
-              <p>
-                Make lengthy URLs into short links with a click. Share seamlessly on social media, texts, and more. 
-                Simply your sharing with short URLs service 
-              </p>
-              {/* <label htmlFor="url">Url</label> */}
-              <label className='shortUrl-input-label'>https://</label> <input
-                id="url"
-                type="text"
-                name="url"
-                // required
-                onChange={(event) => handleInputChange('ori_url', event.target.value)}
-                // placeholder='Enter link/url here'
-                placeholder='www.teyms.com'
-              //   defaultValue={event ? event.title : ''}
-              />
-            </div>
-            <div 
-              className='shortUrl-btn'
-              >
-              {/* <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
-                Cancel
-              </button> */}
-              <button disabled={isSubmitting}>
-                {isSubmitting ? 'Submitting...' : 'Shorten'}
-              </button>
-            </div>
-          </Form>
+                { isAuthenticated &&     
+                  <>          
+                    <div className='form-row'>
+                      <label className='shortUrlCreate-input-label'>*Custom Path</label> 
+                      <input
+                        id="customPath"
+                        type="text"
+                        name="customPath"
+                        // required
+                        onChange={(event) => handleInputChange('customPath', event.target.value)}
+                        placeholder='Custom Path'
+                        disabled={isLoading}
+
+                      />
+                    </div>
+                    <div className='form-row'>
+                      <label className='shortUrlCreate-input-label'>Title</label> 
+                      <input
+                        id="title"
+                        type="text"
+                        name="title"
+                        // required
+                        onChange={(event) => handleInputChange('title', event.target.value)}
+                        placeholder='Title'
+                        disabled={isLoading}
+                      />
+                    </div>
+                    <div className='form-row'>
+                      <label className='shortUrlCreate-input-label'>Description</label> 
+                      <input
+                        id="description"
+                        type="text"
+                        name="description"
+                        onChange={(event) => handleInputChange('description', event.target.value)}
+                        placeholder='Description'
+                        disabled={isLoading}
+                      />
+                    </div>
+                    <div className='form-row'>
+                      <label className='shortUrlCreate-input-label'>Expires DateTime</label> 
+
+                      {/* Switch to toggle DateTimePicker visibility */}
+                      <FormControlLabel
+                        control={
+                          <Switch
+                          checked={showDatePicker}
+                          onChange={(e) => setShowDatePicker(e.target.checked)}
+                          name="showDatePicker"
+                          />
+                        }
+                        label={showDatePicker ? "": "Never Expired"}
+                      />
+
+                      {showDatePicker && <DateTimePicker
+                        label="Select Date and Time"
+                        sx={{
+                          '& .MuiInputLabel-root': {
+                            color: 'white', // Change label color
+                          },
+                          '& .MuiInputLabel-root.Mui-focused': {
+                            // color: 'blue', // Color when focused
+                          }
+                        }}
+                        value={enteredValues.expires_at}
+                        // onChange={(newDate) => setStartDate(newDate)}
+                        onChange={(newValue) => handleInputChange('expires_at', newValue)}
+
+                        renderInput={(props) => <TextField 
+                          {...props}                         
+                        />}  // Render input as TextField
+                        minDate={new Date()}  // Set minimum date to today
+                        // format="MM/dd/yyyy hh:mm a"  // Custom format
+                        format="MM/dd/yyyy HH:mm"  // Custom format
+                        ampm={false}  // Use AM/PM format
+                        // showTimeSelect={true}  // Show time select
+                        // timeIntervals={15}  // Time intervals in minutes
+                        // placeholder="Never Expired"  // Set placeholder text
+                      />}
+                    </div>
+                  </>
+                }
+
+              </div>
+              <div 
+                className='shortUrl-btn'
+                >
+                <button disabled={isLoading}>
+                  {isLoading ? 'Submitting...' : 'Shorten'}
+                </button>
+              </div>
+            </Form>
+          </LocalizationProvider>
+
         </div>
         <div className="shortUrl-ads-container shortUrl-right-container" style={{visibility:'hidden'}}>
           <div className='shortUrl-ads-banner'>qwer</div>
@@ -239,46 +354,35 @@ function ShortUrlCreate({ method, event }) {
 }
 
 export default ShortUrlCreate;
-// export { ShortUrl as default, action};
 
+// case USER_SUBMIT_FORM: {
+//   // Helper function to validate and update state
+//   const validateAndSet = (field, validator, ...extraArgs) => {
+//     const value = formData?.[field];
+//     const validationResult = validator(value, ...extraArgs); // Pass extra arguments to the validator
+//     if (!validationResult.success) return { success: false };
 
-export async function action({ request, params }) {
-    const method = request.method;
-    const data = await request.formData();
-    const dispatch = useDispatch();
+//     // Update formData and enteredValues
+//     formData[field] = validationResult.value || value;
+//     setEnteredValues(prevValues => ({
+//       ...prevValues,
+//       [field]: validationResult.value || value,
+//     }));
 
+//     return true; // Return true if validation is successful
+//   };
 
-    dispatch(createShortUrl.createShortUrl(data));
-  
-    // const eventData = {
-    //   title: data.get('title'),
-    //   image: data.get('image'),
-    //   date: data.get('date'),
-    //   description: data.get('description'),
-    // };
-  
-    // let url = 'http://localhost:8080/events';
-  
-    // if (method === 'PATCH') {
-    //   const eventId = params.eventId;
-    //   url = 'http://localhost:8080/events/' + eventId;
-    // }
-  
-    // const response = await fetch(url, {
-    //   method: method,
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(eventData),
-    // });
-  
-    // if (response.status === 422) {
-    //   return response;
-    // }
-  
-    // if (!response.ok) {
-    //   throw json({ message: 'Could not save event.' }, { status: 500 });
-    // }
-  
-    // return redirect('/events');
-}
+//   // Validate fields using the helper function
+//   if (
+//     !validateAndSet('original_url', validateUrl) ||
+//     !validateAndSet('customPath', validateCustomPath, user.short_url_path) ||
+//     !validateAndSet('title', validateTitle) ||
+//     !validateAndSet('description', validateDescription) ||
+//     !validateAndSet('expires_at', validateExpiresAt)
+//   ) {
+//     return { success: false }; // If any validation fails, return false
+//   }
+
+//   return { ...formData, success: true }; // Return the updated formData with success
+// }
+
