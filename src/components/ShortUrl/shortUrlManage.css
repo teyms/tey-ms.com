@@ -1,0 +1,118 @@
+.shortUrlManage-parent-container{
+    /* min-height: 100vh; */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Added to center content vertically and horizontally */
+    padding: 20px 0; /* Added padding to ensure content has breathing room */
+}
+
+.shortUrlManage-container{
+    width: 80%;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* justify-content: center; */
+
+    /* Remove absolute positioning */
+    position: relative;
+    left: auto;
+    transform: none;
+    
+    text-align: center;
+    color: #ede5e5;
+    background-color: #5A3785;
+    padding: 20px 0 0px 0;
+    border-radius: 2rem;
+    
+}
+
+.shortUrlManage-title{
+    padding: 50px 0 0 0;
+}
+
+
+/* .shortUrl-manage-mui-th{
+} */
+/* .shortUrl-manage-mui-tb{
+} */
+.shortUrl-manage-mui-tr th,
+.shortUrl-manage-mui-tr td{
+    font-size: 0.9rem;
+}
+
+.form-row{
+    padding: 0.5rem 1.5rem;
+    text-align: left;
+}
+
+.shortUrl-btn{
+    padding: 3rem 0 0 0;
+}
+
+.shortUrl-btn button{
+    width: 30%;
+    background-color: #12122b;
+    /* background-color: #A89555; */
+    color: #ffffff;
+    /* color: #1A1B41; */
+}
+
+
+
+@media screen and (max-width: 800px) {
+    .shortUrlManage-parent-container{
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .shortUrlManage-container{
+        position: relative;
+        margin: unset;
+        left: unset;
+        transform: unset;
+        width: 80%
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .shortUrlManage-title{
+        font-size: 2.5rem;
+    }
+    /* .shortUrl-manage-mui-th{
+    } */
+    /* .shortUrl-manage-mui-tb{
+    } */
+    .shortUrl-manage-mui-tr th,
+    .shortUrl-manage-mui-tr td{
+        font-size: 0.8rem;
+    }
+    .shortUrl-btn button{
+        font-size: 0.9rem;
+    }
+}
+  
+@media screen and (max-width: 450px) {
+    .shortUrlManage-container{
+        width: 90%;
+    }
+    .shortUrlManage-title{
+        font-size: 2rem;
+    }
+    /* .shortUrl-manage-mui-th{
+    } */
+    /* .shortUrl-manage-mui-tb{
+    } */
+    .shortUrl-manage-mui-tr th,
+    .shortUrl-manage-mui-tr td{
+        font-size: 0.7rem;
+    }    
+    .shortUrl-btn button{
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 310px) {
+
+}

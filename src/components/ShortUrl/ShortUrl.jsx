@@ -16,9 +16,8 @@ import { getShortUrl } from '../../store/shortUrl-action';
 import Loading from '../../components/Loader/Loading';
 
 function ShortUrl() {
-    const shortUrl = useSelector((state) => state.shortUrl) 
-    const oriUrl = useSelector((state) => state.shortUrl.original_url) 
-    const status = useSelector((state) => state.shortUrl.success) 
+    const oriUrl = useSelector((state) => state.shortUrl.data.original_url) 
+    const status = useSelector((state) => state.shortUrl.data.success) 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const getShortUrlString = useParams();

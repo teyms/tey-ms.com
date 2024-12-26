@@ -57,11 +57,12 @@ function Header(){
                     </div>
 
                     {isAuthenticated ? (
-                        <div style={userStyles}>
+                        <div className='profile-container' 
+                            style={userStyles}
+                        >
                             <img 
                                 src={user?.google_avatar} 
                                 alt="Profile" 
-                                style={profilePicStyles} 
                                 referrerPolicy="no-referrer"
                                 onError={(e) => {
                                     console.error('Detailed Avatar Error', {
@@ -85,11 +86,6 @@ function Header(){
     );
 }
 
-const profilePicStyles = {
-    width: '40px',
-    height: '40px',
-    borderRadius: '50%',
-};
 
 const userStyles = {
     alignItems: 'center',

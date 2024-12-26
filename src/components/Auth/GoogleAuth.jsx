@@ -12,12 +12,12 @@ import {
     redirect
 } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import './googleAuth.css';
 
 import { postGoogleAuth } from '../../store/googleAuth-action';
 import Loading from '../../components/Loader/Loading';
 
 function GoogleAuth(props) {
-  // const createdShortUrl = useSelector((state) => state.shortUrl.shorten_url) 
   const token = useSelector((state) => state.googleAuth.token) 
   const status = useSelector((state) => state.googleAuth.success)
 
@@ -89,13 +89,14 @@ function GoogleAuth(props) {
   return (
     <>
       {isLoading && <Loading/>}
-      <button 
-        // onClick={login}
-        onClick={() => { setIsLoading(true); login(); }}
-      >
+      <div className='login-container'>
+        <button 
+          onClick={() => { setIsLoading(true); login(); }}
+        >
 
-        Login with Google
-      </button>
+          Login with Google
+        </button>
+      </div>
     </>
   );
 };

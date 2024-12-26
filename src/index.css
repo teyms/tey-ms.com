@@ -75,6 +75,9 @@ button:focus-visible {
   }
 }
 
+.custom-swal-container{
+  z-index: 9999 !important;
+}
 .custom-swal-color{
   border: 1px solid #000000;
   background: #5e24a5;

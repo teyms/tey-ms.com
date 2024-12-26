@@ -45,7 +45,7 @@ export const helperValidation = {
     isURLValid(value){
         try {
             const parseUrl = new URL(value);
-            console.log(parseUrl.href);
+            // console.log(parseUrl.href);
         } catch (error) {
             return false;
         }
@@ -83,6 +83,7 @@ export function helperErrorPopUp({title, text}){
         icon: 'error',
         confirmButtonText: 'OK',
         customClass: {
+            container: 'custom-swal-container',
             popup: 'custom-swal-color',
             content: 'custom-swal-color',
             confirmButton: 'custom-swal-color',
