@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import Blog from './components/Blog/Blog'
 import BlogPost from './components/Blog/BlogPost'
 import ShortUrlCreate from './components/ShortUrl/ShortUrlCreate'
-import { action as shortUrlCreateAction} from './components/ShortUrl/ShortUrlCreate'
+import ShortUrlManage from './components/ShortUrl/ShortUrlManage'
 import ShortUrl from './components/ShortUrl/ShortUrl'
 import EmailTemplate from './components/EmailTemplate/EmailTemplate'
 import TngFileConvert from './components/TngFileConvert/TngFileConvert'
@@ -56,6 +56,10 @@ const router = createBrowserRouter([
             element: <ShortUrlCreate/>,
             // action: ShortUrl.action,
             // loader: eventsLoader,
+          },
+          {
+            path: 'manage',
+            element: <ShortUrlManage/>,
           },
           {
             path: '*',

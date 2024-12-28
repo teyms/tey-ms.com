@@ -1,0 +1,17 @@
+.login-container{
+    width: 70%;
+    min-height: 30vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin: 1.5rem auto;
+    /* background-color: blanchedalmond; */
+    /* background-color: #353638; */
+    border-radius: 8px;
+}
+
+.login-container button{
+    background-color: #353638;
+
+}

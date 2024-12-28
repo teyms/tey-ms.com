@@ -5,13 +5,14 @@ import {
     useNavigate,
     useNavigation,
     useActionData,
+    NavLink,
     json,
     redirect
 } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 import './shortUrl.css';
-import { helperErrorPopUp } from '../../utils/validation'
+import { helperErrorPopUp } from '../../utils/validation';
 
 import { createShortUrl } from '../../store/shortUrl-action';
 import { shortUrlActions } from '../../store/shortUrl-slide';
@@ -42,8 +43,8 @@ function ShortUrlCreate({ method, event }) {
   });
 
   const { isAuthenticated, user } = useSelector((state) => state.googleAuth);
-  const shortUrl = useSelector((state) => state.shortUrl.shorten_url) 
-  const status = useSelector((state) => state.shortUrl.success)
+  const shortUrl = useSelector((state) => state.shortUrl.data.shorten_url) 
+  const status = useSelector((state) => state.shortUrl.data.success)
   const data = useActionData();
   const navigate = useNavigate();
   const navigation = useNavigation();
@@ -135,7 +136,7 @@ function ShortUrlCreate({ method, event }) {
           formData.expires_at = validateExpiresAtResult.expires_at;
           setEnteredValues(prevValues => ({
             ...prevValues,
-            expires_at: expires_at,nv
+            expires_at: expires_at,
           }));          
         }else{
           expires_at = null;
@@ -217,6 +218,13 @@ function ShortUrlCreate({ method, event }) {
   return (
     <>
       {isLoading && <Loading/>}
+      {isAuthenticated && <div className='shortUrl-nav-container'>        
+        <div className='shortUrl-nav-btn'>
+            <NavLink className="shortUrl-nav-navlink"  to="/shorturl/manage"> Manage </NavLink>
+            <NavLink className="shortUrl-nav-navlink"  to="/shorturl"> Create </NavLink>
+        </div>
+      </div>}  
+
       <div className='shortUrlCreate-parent-container'>
         <div className="shortUrl-ads-container shortUrl-left-container" style={{visibility:'hidden'}}>
           <div className='shortUrl-ads-banner'>qwer</div>

@@ -78,6 +78,7 @@
 .shortUrlCreate-input-label{
     display: inline-flex;
     width: 18%;
+    font-size: 1.3rem;
 }
 .form-row{
     padding: 0.5rem 1.5rem;
@@ -94,6 +95,39 @@
     /* background-color: #A89555; */
     color: #ffffff;
     /* color: #1A1B41; */
+}
+
+
+.shortUrl-nav-container{
+    width: 60%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    padding: 2rem 0 1rem 0;
+}
+
+.shortUrl-nav-btn{
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+
+    text-align: center;
+    color: #ede5e5;
+    border-radius: 8px;
+}
+
+.shortUrl-nav-navlink{
+    font-size: 1em;
+    margin: auto 1rem;
+
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: #5A3785;
+    color: #ffffff;
+}
+.shortUrl-nav-navlink:hover{
+    border: 1px solid lightblue;
 }
 
 
@@ -140,7 +174,14 @@
     .shortUrl-input-label{
         font-size: 0.9rem;
     }
+    .shortUrlCreate-input-label{
+        font-size: 0.9rem;
+    }
     .shortUrl-btn button{
+        font-size: 0.9rem;
+    }
+    
+    .shortUrl-nav-navlink{
         font-size: 0.9rem;
     }
 }
@@ -162,11 +203,23 @@
     .shortUrl-input-label{
         font-size: 0.8rem;
     }
+    .shortUrlCreate-input-label{
+        font-size: 0.8rem;
+    }
     .shortUrl-btn button{
+        font-size: 0.8rem;
+    }
+    .shortUrl-nav-navlink{
         font-size: 0.8rem;
     }
 }
 
-@media screen and (max-width: 310px) {
-
+@media screen and (max-width: 380px) {
+    .shortUrl-nav-container{
+        margin: 1rem auto 2rem auto;
+    }
+    .shortUrlCreate-input-label{
+        font-size: 0.7rem;
+        margin-right: 0.7rem;
+    }
 }
