@@ -11,7 +11,7 @@ import {
 import Swal from 'sweetalert2';
 
 import './tngFileConvert.css';
-import validation from '../../utils/validation'
+import { helperValidation } from '../../utils/validation'
 import { createTngFileConvert } from '../../store/tngFileConvert-action';
 import { tngFileConvertActions } from '../../store/tngFileConvert-slide';
 import Loading from '../../components/Loader/Loading';
@@ -129,7 +129,7 @@ function TngFileConvert({ method, event }) {
   function formDataValidation(){
     let errorMsg = '';
     for (const key in enteredValues) {
-      if (enteredValues.hasOwnProperty(key) && validation.isEmpty(enteredValues[key])) {
+      if (enteredValues.hasOwnProperty(key) && helperValidation.isEmpty(enteredValues[key])) {
 
         errorMsg = `${key} cannot be empty!`
         Swal.fire({
@@ -146,7 +146,7 @@ function TngFileConvert({ method, event }) {
 
         return false; // Return the name (key) of the property with the matching value
       }
-      if(key == 'type' && !validation.isSelectedFile([enteredValues.type])){
+      if(key == 'type' && !helperValidation.isSelectedFile([enteredValues.type])){
         errorMsg = `Only PDF Accepted!`
         Swal.fire({
           title: 'ERROR!',

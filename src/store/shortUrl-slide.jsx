@@ -3,13 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 const shortUrlSlice = createSlice({
   name: 'shortUrl',
   initialState: {
-    ori_url: '',
+    original_url: '',
     shorten_url: '',
     success: ''
   },
   reducers: {
     updateShortUrl(state, action) {
-        state.ori_url = action.payload?.ori_url || '';
+        state.original_url = action.payload?.original_url || '';
         state.shorten_url = action.payload?.shorten_url || '';
         const success = action.payload?.success;
         if(success === false){

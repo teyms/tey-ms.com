@@ -57,7 +57,7 @@ export const getShortUrl = (shortUrl) => {
         //     method: 'GET',
         //     // body: shortUrl,
         //     // body: JSON.stringify({
-        //     //     ori_url: shortUrl.ori_url,
+        //     //     original_url: shortUrl.original_url,
         //     //     // totalQuantity: cart.totalQuantity,
         //     // }),
         //     }
@@ -70,7 +70,7 @@ export const getShortUrl = (shortUrl) => {
 
         // dispatch(
         //     shortUrlActions.updateShortUrl({
-        //         ori_url: res?.data?.ori_url,
+        //         original_url: res?.data?.original_url,
         //     })
         // );
         const res = await getShortUrlApi(shortUrl);
@@ -78,7 +78,7 @@ export const getShortUrl = (shortUrl) => {
         if(!res?.success){
           return dispatch(
             shortUrlActions.updateShortUrl({
-              ori_url: 'shortUrl_failed', 
+              original_url: 'shortUrl_failed', 
               success: false,
             })
           );
@@ -86,7 +86,7 @@ export const getShortUrl = (shortUrl) => {
 
         return dispatch(
             shortUrlActions.updateShortUrl({
-              ori_url: res?.data?.ori_url,
+              original_url: res?.data?.original_url,
               success: true,
             })
         );
@@ -137,7 +137,7 @@ export const createShortUrl = (shortUrl) => {
         //     method: 'POST',
         //     // body: shortUrl,
         //     body: JSON.stringify({
-        //         ori_url: shortUrl.ori_url,
+        //         original_url: shortUrl.original_url,
         //         // totalQuantity: cart.totalQuantity,
         //     }),
         //     }

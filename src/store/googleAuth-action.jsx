@@ -1,9 +1,6 @@
 import { googleAuthActions } from './googleAuth-slide';
 import { postGoogleAuthApi, logoutApi } from '../apis/googleAuth-api';
-
-// Cache keys
-const AUTH_TOKEN_KEY = 'authToken';
-const USER_DATA_KEY = 'userData';
+import { AUTH_TOKEN_KEY, USER_DATA_KEY } from '../utils/constant';
 
 export const postGoogleAuth = (response) => {
   return async (dispatch) => {
@@ -77,7 +74,6 @@ export const logout = (userDetails, token) => {
 
             // }
     
-            console.log(res);
             localStorage.removeItem(AUTH_TOKEN_KEY);
             localStorage.removeItem(USER_DATA_KEY);
         
