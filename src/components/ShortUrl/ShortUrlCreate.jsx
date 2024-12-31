@@ -33,18 +33,20 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'; // Adapte
 import { enUS } from 'date-fns/locale'; // Optional: Change locale to French if needed
 
 function ShortUrlCreate({ method, event }) {
+  const { isAuthenticated, user } = useSelector((state) => state.googleAuth);
+  const shortUrl = useSelector((state) => state.shortUrl.data.shorten_url) 
+  const status = useSelector((state) => state.shortUrl.data.success)
+
   const [showDatePicker, setShowDatePicker] = useState(false); // Control visibility of DateTimePicker
   const [enteredValues, setEnteredValues] = useState({
     original_url: '',
     customPath: '',
     title: '',
     description: '',
+    short_url_path: user?.short_url_path || '',
     expires_at: null, // Initialize to null (or new Date()) to avoid the uncontrolled warning
   });
 
-  const { isAuthenticated, user } = useSelector((state) => state.googleAuth);
-  const shortUrl = useSelector((state) => state.shortUrl.data.shorten_url) 
-  const status = useSelector((state) => state.shortUrl.data.success)
   const data = useActionData();
   const navigate = useNavigate();
   const navigation = useNavigation();
@@ -99,8 +101,9 @@ function ShortUrlCreate({ method, event }) {
         }));          
 
         //Validation for CustomPath
-        let customPath = formData?.customPath;
-        const validateCustomPathResult = validateCustomPath(customPath, user.short_url_path);
+        let customPath = formData?.customPath; 
+        let short_url_path = formData?.short_url_path || null; 
+        const validateCustomPathResult = validateCustomPath(customPath, user.short_url_path? user.short_url_path: short_url_path);
         if(!validateCustomPathResult.success) return {success:false};  
         formData.customPath = validateCustomPathResult.customPath;
         setEnteredValues(prevValues => ({
@@ -245,6 +248,27 @@ function ShortUrlCreate({ method, event }) {
                 </p>
                 {/* <label htmlFor="url">Url</label> */}
                 <div className='form-row'>
+
+                {/* { isAuthenticated && (user !== undefined && user.short_url_path) &&  */}
+                { isAuthenticated && 
+                  <>
+                    <label className='shortUrlCreate-input-label'>Unique Identifier Code</label> 
+                    <input
+                      id="short_url_path"
+                      type="text"
+                      name="short_url_path"
+                      // required
+                      onChange={(event) => handleInputChange('short_url_path', event.target.value)}
+                      // value={(user !== undefined && user.short_url_path)? user.short_url_path: null}
+                      // {(user !== undefined && user.short_url_path) ? 'value={user.short_url_path: null}':''}
+                      value={enteredValues?.short_url_path}
+                      
+                      placeholder='Unique Identifier Code'
+                      disabled={(user !== undefined && user.short_url_path)}
+                    />
+                  </>
+                }
+
                   {/* <label className='shortUrlCreate-input-label'>*https://</label>  */}
                   <label className='shortUrlCreate-input-label'>*URL/ Website Link</label> 
                   <input

@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { AUTH_TOKEN_KEY, USER_DATA_KEY } from '../utils/constant';
+
 
 const googleAuthSlice = createSlice({
   name: 'googleAuth',
@@ -23,6 +25,10 @@ const googleAuthSlice = createSlice({
             state.isAuthenticated = true;
             state.success = success || '';
         }
+    },
+    updateUserShortUrlPath(state, action) {
+      state.user.short_url_path = action.payload?.short_url_path || null;
+      localStorage.setItem(USER_DATA_KEY, JSON.stringify(state.user));      
     },
   },
 });

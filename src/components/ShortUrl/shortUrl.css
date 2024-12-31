@@ -1,7 +1,11 @@
 .shortUrlCreate-parent-container{
-    height: 100vh;
+    /* height: 100vh; */
+    min-height: 100vh;
+
     display: flex;
     align-items: center;
+    padding: 20px 0; /* Added padding to ensure content has breathing room */
+
 }
 
 .shortUrl-ads-container{
@@ -24,7 +28,7 @@
 }
 
 .shortUrlCreate-container{
-    width: 60%;
+    width: 70%;
     margin: auto;
 
     display: flex;
@@ -32,9 +36,12 @@
     flex-direction: column;
     /* justify-content: center; */
 
-    position: absolute;
+    /* position: absolute;
     left: 50%;
-    transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%); */
+    position: relative;
+    /* left: auto; */
+    /* transform: none; */
     
     text-align: center;
     color: #ede5e5;

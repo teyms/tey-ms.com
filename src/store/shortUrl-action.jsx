@@ -1,5 +1,6 @@
 import Swal from 'sweetalert2';
 import { shortUrlActions } from './shortUrl-slide';
+import { googleAuthActions } from './googleAuth-slide';
 import { getShortUrlApi, createShortUrlApi, updateShortUrlApi, deleteShortUrlApi, getShortUrlListApi } from '../apis/shortUrl-api';
 
 export const getShortUrl = (shortUrl) => {
@@ -100,6 +101,12 @@ export const createShortUrl = (shortUrl) => {
             })
           );
         }
+
+        dispatch(
+          googleAuthActions.updateUserShortUrlPath({
+            short_url_path: res?.data?.short_url_path,
+          })
+        );
 
         return dispatch(
             shortUrlActions.updateShortUrl({
