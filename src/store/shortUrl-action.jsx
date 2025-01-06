@@ -102,11 +102,13 @@ export const createShortUrl = (shortUrl) => {
           );
         }
 
-        dispatch(
-          googleAuthActions.updateUserShortUrlPath({
-            short_url_path: res?.data?.short_url_path,
-          })
-        );
+        if(res?.data?.short_url_path){ // update the shortUrlPath, only if its a login user
+          dispatch(
+            googleAuthActions.updateUserShortUrlPath({
+              short_url_path: res?.data?.short_url_path,
+            })
+          );
+        }
 
         return dispatch(
             shortUrlActions.updateShortUrl({
